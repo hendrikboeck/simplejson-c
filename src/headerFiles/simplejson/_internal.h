@@ -70,7 +70,11 @@ void* __moveOnto(void* dest, void* src, const size_t size);
 void __error(strview_t msg);
 void __errorExit(const int32_t code, strview_t msg);
 
+#ifdef WIN32
+#define SIGNAL_FATAL_ERROR SIGTERM
+#else
 #define SIGNAL_FATAL_ERROR SIGUSR1
+#endif
 
 #define FATAL_ERROR(fmt, ...) \
   __fatalError(__FILE__, __LINE__, fmt, ##__VA_ARGS__)

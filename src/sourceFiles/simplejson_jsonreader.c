@@ -167,31 +167,31 @@ int32_t __jsonreader_getTypeOfNextToken(JSONReader self) {
 
 Object __jsonreader_parseObject(JSONReader self) {
   switch (__jsonreader_getTypeOfNextToken(self)) {
-    case NULL_OBJ_TYPE:
+    case NULL_OBJ_TYPE: ;
       vptr_t _null_ = __jsonreader_parseNull(self);
       return object_new(_null_);
 
-    case INT64_OBJ_TYPE:
+    case INT64_OBJ_TYPE: ;
       int64_t _int_ = __jsonreader_parseInt64(self);
       return object_new(_int_);
 
-    case FLOAT64_OBJ_TYPE:
+    case FLOAT64_OBJ_TYPE: ;
       float64_t _float_ = __jsonreader_parseFloat64(self);
       return object_new(_float_);
 
-    case BOOL_OBJ_TYPE:
+    case BOOL_OBJ_TYPE: ;
       bool_t _bool_ = __jsonreader_parseBool(self);
       return object_new(_bool_);
 
-    case STR_OBJ_TYPE:
+    case STR_OBJ_TYPE: ;
       str_t _str_ = __jsonreader_parseStr(self);
       return object_new(_str_);
 
-    case LIST_OBJ_TYPE:
+    case LIST_OBJ_TYPE: ;
       List _list_ = __jsonreader_parseList(self);
       return object_new(_list_);
 
-    case DICT_OBJ_TYPE:
+    case DICT_OBJ_TYPE: ;
       Dict _dict_ = __jsonreader_parseDict(self);
       return object_new(_dict_);
 
