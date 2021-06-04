@@ -12,4 +12,4 @@ file(GLOB all_SRCs
   "${PROJECT_SOURCE_DIR}/src/sourceFiles/*.c"
 )
 
-add_library(${PROJECTNAME} ${all_SRCs})
+add_library(${PROJECTNAME} STATIC ${all_SRCs})
