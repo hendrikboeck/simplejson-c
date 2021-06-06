@@ -22,8 +22,9 @@ str_t str_new(size_t cap) {
   return (str_t)NEW_BLK(cap);
 }
 
-void str_del(str_t self) {
+void* str_del(str_t self) {
   DEL(self);
+  return NULL;
 }
 
 str_t str_copy(strview_t self) {
@@ -34,7 +35,7 @@ size_t str_length(strview_t self) {
   return strlen(self);
 }
 
-bool_t str_compare(strview_t self, strview_t other) {
+bool_t str_equal(strview_t self, strview_t other) {
   return (bool_t)(strcmp(self, other) == 0);
 }
 
@@ -53,5 +54,5 @@ bool_t str_startsWithChar(strview_t self, const char part) {
 }
 
 bool_t str_startsWith(strview_t self, strview_t part) {
-  (bool_t)(strncmp(self, part, strlen(part)) == 0);
+  return (bool_t)(strncmp(self, part, strlen(part)) == 0);
 }

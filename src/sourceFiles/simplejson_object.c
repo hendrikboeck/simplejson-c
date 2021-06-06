@@ -81,7 +81,7 @@ Object __object_newDict(Dict data) {
   return self;
 }
 
-void object_del(Object self) {
+void* object_del(Object self) {
   switch (self->type) {
     case STR_OBJ_TYPE:
       DEL(self->u._str_);
@@ -100,6 +100,7 @@ void object_del(Object self) {
   }
 
   DEL(self);
+  return NULL;
 }
 
 Object object_copy(Object self) {

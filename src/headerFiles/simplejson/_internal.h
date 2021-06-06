@@ -33,12 +33,12 @@ extern "C" {
 typedef float  float32_t;
 typedef double float64_t;
 
-typedef enum { false, true } bool_t;
+typedef enum { C_FALSE, C_TRUE } bool_t;
 
 typedef void*       vptr_t;
 typedef int8_t      byte_t;
 typedef char*       str_t;
-typedef const str_t strview_t;
+typedef const char* strview_t;
 
 /******************************************************************************/
 /*                                MEMORY                                      */
@@ -53,7 +53,11 @@ typedef const str_t strview_t;
 #define PNEW(type)       ((type)NEW_BLK(PSIZE(type)))
 #define NEW(type)        ((type*)NEW_BLK(sizeof(type)))
 #define NEW_ARR(type, n) ((type*)NEW_BLK(sizeof(type) * n))
-#define DEL(ptr)         free(ptr)
+#define DEL(ptr) \
+  {              \
+    free(ptr);   \
+    ptr = NULL;  \
+  }
 
 void* __copy(const void* src, const size_t size);
 void* __move(void* src, const size_t size);

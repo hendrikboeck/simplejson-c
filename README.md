@@ -14,7 +14,7 @@ strview_t  json   = "{\"key\": \"value\"}";
 JSONReader reader = jsonreader_new(json);
 Dict       dict   = jsonreader_getDict(reader);  // just reference
 
-for(size_t i = 0; i < dict_len(dict); i++) {
+for(size_t i = 0; i < dict_length(dict); i++) {
   DictTuple tpl = dict_data(dict)[i];
   printf("key: '%s', value: '%s'\n", tpl.key, object_getStr(tpl.value));
 }

@@ -29,10 +29,11 @@ JSONReader jsonreader_new(strview_t json) {
   return self;
 }
 
-void jsonreader_del(JSONReader self) {
+void* jsonreader_del(JSONReader self) {
   str_del(self->buf);
   dict_del(self->dict);
   DEL(self);
+  return NULL;
 }
 
 Dict jsonreader_getDict(const JSONReader self) {
@@ -55,9 +56,9 @@ bool_t __jsonreader_validateNextCharToken(JSONReader self, const char ctoken) {
 
   if (self->buf[self->cur] == ctoken) {
     self->cur++;
-    return true;
+    return C_TRUE;
   } else {
-    return false;
+    return C_FALSE;
   }
 }
 
@@ -67,9 +68,9 @@ bool_t __jsonreader_validateNextToken(JSONReader self, strview_t stoken) {
   size_t stokenLength = str_length(stoken);
   if (strncmp(ADDR(self->buf[self->cur]), stoken, stokenLength) == 0) {
     self->cur += stokenLength;
-    return true;
+    return C_TRUE;
   } else {
-    return false;
+    return C_FALSE;
   }
 }
 
@@ -114,14 +115,14 @@ str_t __jsonreader_getNextToken(JSONReader self, bool_t isSToken) {
 }
 
 bool_t __jsonreader_nextTokenContainsChar(JSONReader self, const char c) {
-  bool_t foundC         = false;
+  bool_t foundC         = C_FALSE;
   str_t  tokenDelimiter = ",]}";
   for (size_t i = self->cur + 1; i < self->len; i++) {
     char curChar = self->buf[i];
     if (curChar == ' ') {
       continue;
     } else if (curChar == '.') {
-      foundC = true;
+      foundC = C_TRUE;
       break;
     } else if (str_containsChar(tokenDelimiter, self->buf[i])) {
       break;
@@ -210,14 +211,14 @@ vptr_t __jsonreader_parseNull(JSONReader self) {
 }
 
 int64_t __jsonreader_parseInt64(JSONReader self) {
-  str_t   nextToken = __jsonreader_getNextToken(self, false);
+  str_t   nextToken = __jsonreader_getNextToken(self, C_FALSE);
   int64_t result    = atol(nextToken);
   str_del(nextToken);
   return result;
 }
 
 float64_t __jsonreader_parseFloat64(JSONReader self) {
-  str_t     nextToken = __jsonreader_getNextToken(self, false);
+  str_t     nextToken = __jsonreader_getNextToken(self, C_FALSE);
   float64_t result    = atof(nextToken);
   str_del(nextToken);
   return result;
@@ -225,17 +226,17 @@ float64_t __jsonreader_parseFloat64(JSONReader self) {
 
 bool_t __jsonreader_parseBool(JSONReader self) {
   if (__jsonreader_validateNextToken(self, "true")) {
-    return true;
+    return C_TRUE;
   } else if (__jsonreader_validateNextToken(self, "false")) {
-    return false;
+    return C_FALSE;
   } else {
     FATAL_ERROR("expected bool, but found \"%s\"",
-                __jsonreader_getNextToken(self, false));
+                __jsonreader_getNextToken(self, C_FALSE));
   }
 }
 
 str_t __jsonreader_parseStr(JSONReader self) {
-  str_t result = __jsonreader_getNextToken(self, true);
+  str_t result = __jsonreader_getNextToken(self, C_TRUE);
   self->cur++;
   return result;
 }

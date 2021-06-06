@@ -83,7 +83,7 @@ Object __object_newBool(bool_t data);
 Object __object_newStr(str_t data);
 Object __object_newList(List data);
 Object __object_newDict(Dict data);
-void   object_del(Object self);
+void*  object_del(Object self);
 Object object_copy(const Object self);
 
 bool_t object_isNull(Object self);
@@ -111,7 +111,7 @@ Dict      object_getDict(Object self);
 extern "C" {
 #endif
 
-struct Object;
+struct _Object;
 typedef struct _Object* Object;
 
 #ifdef __cplusplus

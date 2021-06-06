@@ -31,14 +31,14 @@ extern "C" {
 #define JSON_REV_ESCAPE_CHARS "\b\f\n\r\t\\\""
 #define JSON_ESCAPE_CHARS     "bfnrt\\\""
 
-struct _SIMPLEJSONCWriter {
+struct _JSONWriter {
   Dict         data;
   StringBuffer sbuf;
 };
-typedef struct _SIMPLEJSONCWriter* JSONWriter;
+typedef struct _JSONWriter* JSONWriter;
 
 JSONWriter jsonwriter_new(Dict data);
-void       jsonwriter_del(JSONWriter self);
+void*      jsonwriter_del(JSONWriter self);
 
 strview_t jsonwriter_getStrView(JSONWriter self);
 

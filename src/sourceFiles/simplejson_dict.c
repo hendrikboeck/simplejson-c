@@ -28,14 +28,16 @@ Dict dict_new() {
   return self;
 }
 
-void dict_del(Dict self) {
+void* dict_del(Dict self) {
   dict_clear(self);
   DEL(self->data);
   DEL(self);
+  return NULL;
 }
 
 Dict dict_copy(const Dict self) {
-  Dict other = __copy(self, PSIZE(Dict));
+  Dict other  = (Dict)__copy(self, PSIZE(Dict));
+  other->data = NEW_ARR(DictTuple, self->cap);
 
   for (size_t i = 0; i < self->len; i++)
     other->data[i] = (DictTuple){.key   = str_copy(self->data[i].key),
@@ -54,11 +56,11 @@ bool_t __dict_isSpace(const Dict self, const size_t size) {
   return (self->len + size <= self->cap);
 }
 
-size_t dict_len(const Dict self) {
+size_t dict_length(const Dict self) {
   return self->len;
 }
 
-size_t dict_cap(const Dict self) {
+size_t dict_capacity(const Dict self) {
   return self->cap;
 }
 
@@ -68,17 +70,19 @@ DictTuple* dict_data(const Dict self) {
 
 Dict dict_clear(Dict self) {
   for (size_t i = 0; i < self->len; i++) {
-    DEL(self->data[i].key);
-    object_del(self->data[i].value);
+    DictTuple *tplPtr = ADDR(self->data[i]);
+    tplPtr->key = str_del(tplPtr->key);
+    tplPtr->value = object_del(tplPtr->value);
   }
+  self->len = 0;
 
   return self;
 }
 
-Dict dict_set(Dict self, strview_t key, Object value) {
+Dict dict_set(Dict self, str_t key, Object value) {
   DictTuple* itr = dict_getTuple(self, key);
 
-  if (itr) {
+  if (itr != NULL) {
     object_del(itr->value);
     itr->value = value;
   } else {
@@ -114,8 +118,8 @@ strview_t* dict_keys(const Dict self) {
 Object dict_setDefault(Dict self, strview_t key, Object def) {
   DictTuple* itr = dict_getTuple(self, key);
 
-  if (!itr) {
-    dict_set(self, key, def);
+  if (itr == NULL) {
+    dict_set(self, str_copy(key), def);
     return def;
   } else {
     object_del(def);

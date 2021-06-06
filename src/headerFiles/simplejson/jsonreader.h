@@ -25,9 +25,9 @@ extern "C" {
 
 #include "simplejson/_internal.h"
 #include "simplejson/dict.h"
+#include "simplejson/jsonwriter.h"
 #include "simplejson/list.h"
 #include "simplejson/object.h"
-#include "simplejson/jsonwriter.h"
 #include "simplejson/str.h"
 
 struct _SIMPLEJSONCReader {
@@ -39,7 +39,7 @@ struct _SIMPLEJSONCReader {
 typedef struct _SIMPLEJSONCReader* JSONReader;
 
 JSONReader jsonreader_new(strview_t json);
-void       jsonreader_del(JSONReader self);
+void*      jsonreader_del(JSONReader self);
 
 Dict jsonreader_getDict(const JSONReader self);
 

@@ -26,7 +26,7 @@ void* __copy(const void* src, const size_t size) {
 
 void* __move(void* src, const size_t size) {
   void* blk = __copy(src, size);
-  DEL(blk);
+  DEL(src);
   return blk;
 }
 

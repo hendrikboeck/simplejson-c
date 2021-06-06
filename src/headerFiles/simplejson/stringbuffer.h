@@ -36,7 +36,7 @@ struct _StringBuffer {
 typedef struct _StringBuffer* StringBuffer;
 
 StringBuffer stringbuffer_new();
-void         stringbuffer_del(StringBuffer self);
+void*        stringbuffer_del(StringBuffer self);
 StringBuffer stringbuffer_copy(const StringBuffer self);
 
 void   __stringbuffer_expand(StringBuffer self);

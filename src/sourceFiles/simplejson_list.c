@@ -28,10 +28,11 @@ List list_new() {
   return self;
 }
 
-void list_del(List self) {
+void* list_del(List self) {
   list_clear(self);
   DEL(self->data);
   DEL(self);
+  return NULL;
 }
 
 List list_copy(const List self) {
@@ -57,11 +58,11 @@ bool_t __list_isSpace(const List self, const size_t size) {
   return (self->len + size <= self->cap);
 }
 
-size_t list_len(List self) {
+size_t list_length(List self) {
   return self->len;
 }
 
-size_t list_cap(const List self) {
+size_t list_capacity(const List self) {
   return self->cap;
 }
 
@@ -78,7 +79,8 @@ List list_append(List self, Object obj) {
 }
 
 List list_clear(List self) {
-  for (size_t i = 0; i < self->len; i++) object_del(self->data[i]);
+  for (size_t i = 0; i < self->len; i++)
+    self->data[i] = object_del(self->data[i]);
   self->len = 0;
 }
 
@@ -103,7 +105,7 @@ List list_insert(List self, const size_t index, Object obj) {
 }
 
 List list_remove(List self, const size_t index) {
-  object_del(self->data[index]);
+  self->data[index] = object_del(self->data[index]);
   for (size_t i = index; i < self->len - 1; i++)
     self->data[i] = self->data[i + 1];
   self->len--;

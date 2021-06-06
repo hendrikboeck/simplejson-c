@@ -34,15 +34,15 @@ struct _List {
 };
 typedef struct _List* List;
 
-List list_new();
-void list_del(List self);
-List list_copy(const List self);
+List  list_new();
+void* list_del(List self);
+List  list_copy(const List self);
 
 void   __list_expand(List self);
 bool_t __list_isSpace(const List self, const size_t size);
 
-size_t  list_len(const List self);
-size_t  list_cap(const List self);
+size_t  list_length(const List self);
+size_t  list_capacity(const List self);
 Object  list_at(const List self, const size_t index);
 Object* list_data(const List self);
 List    list_append(List self, Object obj);

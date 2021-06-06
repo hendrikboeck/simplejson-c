@@ -28,9 +28,10 @@ StringBuffer stringbuffer_new() {
   return self;
 }
 
-void stringbuffer_del(StringBuffer self) {
+void* stringbuffer_del(StringBuffer self) {
   str_del(self->buf);
   DEL(self);
+  return NULL;
 }
 
 StringBuffer stringbuffer_copy(const StringBuffer self) {

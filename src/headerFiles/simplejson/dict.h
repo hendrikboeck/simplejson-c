@@ -41,18 +41,18 @@ struct _Dict {
 };
 typedef struct _Dict* Dict;
 
-Dict dict_new();
-void dict_del(Dict self);
-Dict dict_copy(const Dict self);
+Dict  dict_new();
+void* dict_del(Dict self);
+Dict  dict_copy(const Dict self);
 
 void   __dict_expand(Dict self);
 bool_t __dict_isSpace(const Dict self, const size_t size);
 
-size_t     dict_len(const Dict self);
-size_t     dict_cap(const Dict self);
+size_t     dict_length(const Dict self);
+size_t     dict_capacity(const Dict self);
 DictTuple* dict_data(const Dict self);
 Dict       dict_clear(Dict self);
-Dict       dict_set(Dict self, strview_t key, Object value);
+Dict       dict_set(Dict self, str_t key, Object value);
 Object     dict_get(const Dict self, strview_t key);
 DictTuple* dict_getTuple(const Dict self, strview_t key);
 strview_t* dict_keys(const Dict self);

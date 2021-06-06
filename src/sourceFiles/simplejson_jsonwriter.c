@@ -29,9 +29,10 @@ JSONWriter jsonwriter_new(Dict data) {
   return self;
 }
 
-void jsonwriter_del(JSONWriter self) {
+void* jsonwriter_del(JSONWriter self) {
   stringbuffer_del(self->sbuf);
   DEL(self);
+  return NULL;
 }
 
 strview_t jsonwriter_getStrView(JSONWriter self) {
