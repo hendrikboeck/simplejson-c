@@ -43,11 +43,11 @@ static void test_str_equal(void** state) {
 static void test_str_contains(void** state) {
   (void)state;
 
-  char* cp_01 = str_containsChar("abcdef", 'b');
+  const char* cp_01 = str_containsChar("abcdef", 'b');
   assert_non_null(cp_01);
   assert_int_equal(*cp_01, 'b');
 
-  char* cp_02 = str_containsChar("abcdef", 'g');
+  const char* cp_02 = str_containsChar("abcdef", 'g');
   assert_null(cp_02);
 
   char* cp_03 = str_contains("abcdef", "de");

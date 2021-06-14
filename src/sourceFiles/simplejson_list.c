@@ -50,7 +50,7 @@ List list_copy(const List self) {
 
 void __list_expand(List self) {
   self->cap *= 2;
-  self->data = __moveOnto(NEW_ARR(Object, self->cap), self->data,
+  self->data = memory_moveOnto(NEW_ARR(Object, self->cap), self->data,
                           self->len * sizeof(Object));
 }
 

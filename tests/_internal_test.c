@@ -17,7 +17,7 @@ static void test_internal_memory(void **state) {
 
   int32_t* d     = NEW(int32_t);
   *d             = 1234;
-  int32_t* dCopy = (int32_t*)__copy(d, sizeof(int32_t));
+  int32_t* dCopy = (int32_t*)memory_copy(d, sizeof(int32_t));
 
   assert_non_null(d);
   assert_non_null(dCopy);
@@ -25,13 +25,13 @@ static void test_internal_memory(void **state) {
   assert_int_equal(*d, *dCopy);
   assert_int_equal(*d, 1234);
 
-  int32_t* dMove = (int32_t*)__move(d, sizeof(int32_t));
+  int32_t* dMove = (int32_t*)memory_move(d, sizeof(int32_t));
 
   assert_non_null(dMove);
   assert_int_equal(*dMove, 1234);
 
   int32_t* dMoveOnto =
-      (int32_t*)__moveOnto(NEW(int32_t), dMove, sizeof(int32_t));
+      (int32_t*)memory_moveOnto(NEW(int32_t), dMove, sizeof(int32_t));
 
   assert_non_null(dMoveOnto != NULL);
   assert_int_equal(*dMoveOnto, 1234);

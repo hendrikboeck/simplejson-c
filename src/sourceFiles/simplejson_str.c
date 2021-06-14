@@ -39,7 +39,7 @@ bool_t str_equal(strview_t self, strview_t other) {
   return (bool_t)(strcmp(self, other) == 0);
 }
 
-char* str_containsChar(strview_t self, const char part) {
+const char* str_containsChar(strview_t self, const char part) {
   for (size_t i = 0; i < str_length(self); i++)
     if (self[i] == part) return ADDR(self[i]);
   return NULL;

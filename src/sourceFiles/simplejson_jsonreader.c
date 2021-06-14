@@ -92,7 +92,7 @@ str_t __jsonreader_getNextToken(JSONReader self, bool_t isSToken) {
       if (curChar == '\"')
         break;
       else if (curChar == '\\') {
-        char* pEscChar = str_containsChar(esc, self->buf[++self->cur]);
+        const char* pEscChar = str_containsChar(esc, self->buf[++self->cur]);
         stringbuffer_putChar(sbuf, revEsc[pEscChar - esc]);
       } else
         stringbuffer_putChar(sbuf, curChar);

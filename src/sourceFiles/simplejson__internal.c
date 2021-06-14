@@ -18,34 +18,34 @@
 
 #include "simplejson/_internal.h"
 
-void* __copy(const void* src, const size_t size) {
+void* memory_copy(const void* src, const size_t size) {
   void* blk = NEW_BLK(size);
   memcpy(blk, src, size);
   return blk;
 }
 
-void* __move(void* src, const size_t size) {
-  void* blk = __copy(src, size);
+void* memory_move(void* src, const size_t size) {
+  void* blk = memory_copy(src, size);
   DEL(src);
   return blk;
 }
 
-void* __moveOnto(void* dest, void* src, const size_t size) {
+void* memory_moveOnto(void* dest, void* src, const size_t size) {
   memcpy(dest, src, size);
   DEL(src);
   return dest;
 }
 
-void __error(strview_t msg) {
+void sys_error(strview_t msg) {
   fprintf(stderr, "ERROR: %s\n", msg);
 }
 
-void __errorExit(const int32_t code, strview_t msg) {
-  __error(msg);
+void sys_errorExit(const int32_t code, strview_t msg) {
+  sys_error(msg);
   exit(code);
 }
 
-void __fatalError(strview_t filename, int32_t linenumber, strview_t format,
+void exp_fatalError(strview_t filename, int32_t linenumber, strview_t format,
                   ...) {
   fprintf(stderr, "Thrown FATAL_ERROR in file %s in line %d: ", filename,
           linenumber);

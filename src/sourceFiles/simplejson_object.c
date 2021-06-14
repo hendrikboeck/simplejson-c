@@ -104,7 +104,7 @@ void* object_del(Object self) {
 }
 
 Object object_copy(Object self) {
-  Object other = __copy(self, PSIZE(Object));
+  Object other = memory_copy(self, PSIZE(Object));
 
   switch (self->type) {
     case STR_OBJ_TYPE:

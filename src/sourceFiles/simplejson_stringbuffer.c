@@ -35,14 +35,14 @@ void* stringbuffer_del(StringBuffer self) {
 }
 
 StringBuffer stringbuffer_copy(const StringBuffer self) {
-  StringBuffer other = __copy(self, PSIZE(StringBuffer));
-  other->buf         = __copy(self->buf, self->cap);
+  StringBuffer other = memory_copy(self, PSIZE(StringBuffer));
+  other->buf         = memory_copy(self->buf, self->cap);
   return other;
 }
 
 void __stringbuffer_expand(StringBuffer self) {
   self->cap *= 2;
-  self->buf = __moveOnto(str_new(self->cap), self->buf, self->len);
+  self->buf = memory_moveOnto(str_new(self->cap), self->buf, self->len);
 }
 
 bool_t __stringbuffer_isSpace(StringBuffer self, const size_t size) {

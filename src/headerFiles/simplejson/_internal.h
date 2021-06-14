@@ -33,7 +33,9 @@ extern "C" {
 typedef float  float32_t;
 typedef double float64_t;
 
-typedef enum { C_FALSE, C_TRUE } bool_t;
+#define C_FALSE 0
+#define C_TRUE  1
+typedef int32_t bool_t;
 
 typedef void*       vptr_t;
 typedef int8_t      byte_t;
@@ -59,9 +61,9 @@ typedef const char* strview_t;
     ptr = NULL;  \
   }
 
-void* __copy(const void* src, const size_t size);
-void* __move(void* src, const size_t size);
-void* __moveOnto(void* dest, void* src, const size_t size);
+void* memory_copy(const void* src, const size_t size);
+void* memory_move(void* src, const size_t size);
+void* memory_moveOnto(void* dest, void* src, const size_t size);
 
 /******************************************************************************/
 /*                                SYSTEM                                      */
@@ -71,8 +73,8 @@ void* __moveOnto(void* dest, void* src, const size_t size);
 #include <stdarg.h>
 #include <stdio.h>
 
-void __error(strview_t msg);
-void __errorExit(const int32_t code, strview_t msg);
+void sys_error(strview_t msg);
+void sys_errorExit(const int32_t code, strview_t msg);
 
 #ifdef WIN32
 #define SIGNAL_FATAL_ERROR SIGTERM
@@ -81,8 +83,8 @@ void __errorExit(const int32_t code, strview_t msg);
 #endif
 
 #define FATAL_ERROR(fmt, ...) \
-  __fatalError(__FILE__, __LINE__, fmt, ##__VA_ARGS__)
-void __fatalError(strview_t filename, int32_t linenumber, strview_t format,
+  exp_fatalError(__FILE__, __LINE__, fmt, ##__VA_ARGS__)
+void exp_fatalError(strview_t filename, int32_t linenumber, strview_t format,
                   ...);
 
 #ifdef __cplusplus

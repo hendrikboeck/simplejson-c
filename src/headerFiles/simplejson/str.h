@@ -33,12 +33,12 @@ str_t str_new(size_t cap);
 void* str_del(str_t self);
 str_t str_copy(strview_t self);
 
-size_t str_length(strview_t self);
-bool_t str_equal(strview_t self, strview_t other);
-char*  str_containsChar(strview_t self, const char part);
-char*  str_contains(strview_t self, strview_t part);
-bool_t str_startsWithChar(strview_t self, const char part);
-bool_t str_startsWith(strview_t self, strview_t part);
+size_t      str_length(strview_t self);
+bool_t      str_equal(strview_t self, strview_t other);
+const char* str_containsChar(strview_t self, const char part);
+char*       str_contains(strview_t self, strview_t part);
+bool_t      str_startsWithChar(strview_t self, const char part);
+bool_t      str_startsWith(strview_t self, strview_t part);
 
 #ifdef __cplusplus
 }

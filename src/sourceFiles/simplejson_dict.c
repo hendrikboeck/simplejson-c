@@ -36,7 +36,7 @@ void* dict_del(Dict self) {
 }
 
 Dict dict_copy(const Dict self) {
-  Dict other  = (Dict)__copy(self, PSIZE(Dict));
+  Dict other  = (Dict)memory_copy(self, PSIZE(Dict));
   other->data = NEW_ARR(DictTuple, self->cap);
 
   for (size_t i = 0; i < self->len; i++)
@@ -48,7 +48,7 @@ Dict dict_copy(const Dict self) {
 
 void __dict_expand(Dict self) {
   self->cap *= 2;
-  self->data = __moveOnto(NEW_ARR(DictTuple, self->cap), self->data,
+  self->data = memory_moveOnto(NEW_ARR(DictTuple, self->cap), self->data,
                           self->len * sizeof(DictTuple));
 }
 

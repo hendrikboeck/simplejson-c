@@ -70,7 +70,7 @@ void __jsonwriter_serializeObject(JSONWriter self, const Object val) {
       break;
 
     default:
-      __errorExit(EXIT_FAILURE, "JSONWriter: unkown type to serialize");
+      sys_errorExit(EXIT_FAILURE, "JSONWriter: unkown type to serialize");
       break;
   }
 }
@@ -109,7 +109,7 @@ void __jsonwriter_serializeStr(JSONWriter self, strview_t val) {
   str_t esc    = JSON_ESCAPE_CHARS;
 
   for (size_t i = 0; i < strlen(val); i++) {
-    char* inSpecials = str_containsChar(revEsc, val[i]);
+    const char* inSpecials = str_containsChar(revEsc, val[i]);
     if (inSpecials == NULL) {
       stringbuffer_putChar(self->sbuf, val[i]);
     } else {
