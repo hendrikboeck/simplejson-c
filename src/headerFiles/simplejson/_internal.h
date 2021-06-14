@@ -62,8 +62,9 @@ typedef const char* strview_t;
   }
 
 void* memory_copy(const void* src, const size_t size);
+void* memory_copyOnto(void* dest, const void* src, const size_t size);
 void* memory_move(void* src, const size_t size);
-void* memory_moveOnto(void* dest, void* src, const size_t size);
+void* memory_moveOnto(void* dest, const void* src, const size_t size);
 
 /******************************************************************************/
 /*                                SYSTEM                                      */
@@ -76,7 +77,7 @@ void* memory_moveOnto(void* dest, void* src, const size_t size);
 void sys_error(strview_t msg);
 void sys_errorExit(const int32_t code, strview_t msg);
 
-#ifdef WIN32
+#ifdef _WIN32
 #define SIGNAL_FATAL_ERROR SIGTERM
 #else
 #define SIGNAL_FATAL_ERROR SIGUSR1
@@ -85,7 +86,7 @@ void sys_errorExit(const int32_t code, strview_t msg);
 #define FATAL_ERROR(fmt, ...) \
   exp_fatalError(__FILE__, __LINE__, fmt, ##__VA_ARGS__)
 void exp_fatalError(strview_t filename, int32_t linenumber, strview_t format,
-                  ...);
+                    ...);
 
 #ifdef __cplusplus
 }
