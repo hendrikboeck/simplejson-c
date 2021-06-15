@@ -30,7 +30,7 @@ extern "C" {
 #define STR_ASCII_UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 str_t str_new(size_t cap);
-void* str_del(str_t self);
+void  str_del(str_t self);
 str_t str_copy(strview_t self);
 
 size_t      str_length(strview_t self);

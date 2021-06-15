@@ -12,21 +12,19 @@ static void test_list_new(void** state) {
 
   assert_non_null(l_01);
   assert_non_null(l_01->data);
-  assert_int_equal(l_01->cap, __LIST_INITIAL_CAP);
+  assert_int_equal(l_01->cap, _LIST_INITIAL_CAP);
   assert_int_equal(l_01->len, 0);
 
-  l_01 = list_del(l_01);
-
-  assert_null(l_01);
+  list_del(l_01);
 }
 
 static void test_list_expand(void** state) {
   (void)state;
 
   List l_01 = list_new();
-  assert_int_equal(list_capacity(l_01), __LIST_INITIAL_CAP);
-  __list_expand(l_01);
-  assert_int_equal(list_capacity(l_01), __LIST_INITIAL_CAP * 2);
+  assert_int_equal(list_capacity(l_01), _LIST_INITIAL_CAP);
+  _list_expand(l_01);
+  assert_int_equal(list_capacity(l_01), _LIST_INITIAL_CAP * 2);
 
   list_del(l_01);
 }
@@ -35,8 +33,8 @@ static void test_list_isSpace(void** state) {
   (void)state;
 
   List l_01 = list_new();
-  assert_true(__list_isSpace(l_01, __LIST_INITIAL_CAP));
-  assert_false(__list_isSpace(l_01, __LIST_INITIAL_CAP + 1));
+  assert_true(_list_isSpace(l_01, _LIST_INITIAL_CAP));
+  assert_false(_list_isSpace(l_01, _LIST_INITIAL_CAP + 1));
 
   list_del(l_01);
 }
@@ -80,13 +78,13 @@ static void test_list_capacity(void** state) {
   (void)state;
 
   List l_01 = list_new();
-  assert_int_equal(list_capacity(l_01), __LIST_INITIAL_CAP);
+  assert_int_equal(list_capacity(l_01), _LIST_INITIAL_CAP);
 
-  __list_expand(l_01);
-  assert_int_equal(list_capacity(l_01), __LIST_INITIAL_CAP * 2);
+  _list_expand(l_01);
+  assert_int_equal(list_capacity(l_01), _LIST_INITIAL_CAP * 2);
 
   list_clear(l_01);
-  assert_int_equal(list_capacity(l_01), __LIST_INITIAL_CAP * 2);
+  assert_int_equal(list_capacity(l_01), _LIST_INITIAL_CAP * 2);
 
   list_del(l_01);
 }
@@ -154,13 +152,8 @@ static void test_list_clear(void** state) {
 
   list_clear(l_01);
 
-  assert_null(l_01->data[0]);
-  assert_null(l_01->data[1]);
-  assert_null(l_01->data[2]);
-  assert_null(l_01->data[3]);
-  assert_null(l_01->data[4]);
   assert_int_equal(list_length(l_01), 0);
-  assert_int_equal(list_capacity(l_01), __LIST_INITIAL_CAP * 2);
+  assert_int_equal(list_capacity(l_01), _LIST_INITIAL_CAP * 2);
 
   list_del(l_01);
 }

@@ -21,18 +21,17 @@
 Dict dict_new() {
   Dict self = PNEW(Dict);
 
-  self->data = NEW_ARR(DictTuple, __DICT_INITIAL_CAP);
+  self->data = NEW_ARR(DictTuple, _dict_INITIAL_CAP);
   self->len  = 0;
-  self->cap  = __DICT_INITIAL_CAP;
+  self->cap  = _dict_INITIAL_CAP;
 
   return self;
 }
 
-void* dict_del(Dict self) {
+void dict_del(Dict self) {
   dict_clear(self);
   DEL(self->data);
   DEL(self);
-  return NULL;
 }
 
 Dict dict_copy(const Dict self) {
@@ -46,13 +45,13 @@ Dict dict_copy(const Dict self) {
   return other;
 }
 
-void __dict_expand(Dict self) {
+void _dict_expand(Dict self) {
   self->cap *= 2;
   self->data = memory_moveOnto(NEW_ARR(DictTuple, self->cap), self->data,
                           self->len * sizeof(DictTuple));
 }
 
-bool_t __dict_isSpace(const Dict self, const size_t size) {
+bool_t _dict_isSpace(const Dict self, const size_t size) {
   return (self->len + size <= self->cap);
 }
 
@@ -71,8 +70,8 @@ DictTuple* dict_data(const Dict self) {
 Dict dict_clear(Dict self) {
   for (size_t i = 0; i < self->len; i++) {
     DictTuple *tplPtr = ADDR(self->data[i]);
-    tplPtr->key = str_del(tplPtr->key);
-    tplPtr->value = object_del(tplPtr->value);
+    str_del(tplPtr->key);
+    object_del(tplPtr->value);
   }
   self->len = 0;
 
@@ -86,12 +85,12 @@ Dict dict_set(Dict self, str_t key, Object value) {
     object_del(itr->value);
     itr->value = value;
   } else {
-    if (!__dict_isSpace(self, 1)) __dict_expand(self);
+    if (!_dict_isSpace(self, 1)) _dict_expand(self);
     self->data[self->len++] = (DictTuple){.key = key, .value = value};
   }
 }
 
-Object dict_get(Dict self, strview_t key) {
+Object dict_get(const Dict self, strview_t key) {
   DictTuple* itr = dict_getTuple(self, key);
 
   if (itr)
@@ -100,7 +99,7 @@ Object dict_get(Dict self, strview_t key) {
     return NULL;
 }
 
-DictTuple* dict_getTuple(Dict self, strview_t key) {
+DictTuple* dict_getTuple(const Dict self, strview_t key) {
   for (size_t i = 0; i < self->len; i++)
     if (strcmp(self->data[i].key, key) == 0) return ADDR(self->data[i]);
 

@@ -15,8 +15,7 @@ static void test_jsonreader_new(void** state) {
   assert_non_null(r_01->dict);
   assert_int_equal(r_01->len, str_length("{}"));
 
-  r_01 = jsonreader_del(r_01);
-  assert_null(r_01);
+  jsonreader_del(r_01);
 }
 
 static void test_jsonreader_getDict(void** state) {

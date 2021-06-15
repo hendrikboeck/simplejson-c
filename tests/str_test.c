@@ -10,8 +10,7 @@ static void test_str_new(void** state) {
 
   str_t s_01 = str_new(255);
   assert_non_null(s_01);
-  s_01 = str_del(s_01);
-  assert_null(s_01);
+  str_del(s_01);
 }
 
 static void test_str_length(void** state) {

@@ -25,7 +25,7 @@ extern "C" {
 
 #include "simplejson/object.h"
 
-#define __LIST_INITIAL_CAP 4
+#define _LIST_INITIAL_CAP 4
 
 struct _List {
   Object* data;
@@ -34,12 +34,12 @@ struct _List {
 };
 typedef struct _List* List;
 
-List  list_new();
-void* list_del(List self);
-List  list_copy(const List self);
+List list_new();
+void list_del(List self);
+List list_copy(const List self);
 
-void   __list_expand(List self);
-bool_t __list_isSpace(const List self, const size_t size);
+void   _list_expand(List self);
+bool_t _list_isSpace(const List self, const size_t size);
 
 size_t  list_length(const List self);
 size_t  list_capacity(const List self);

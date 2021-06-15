@@ -38,18 +38,18 @@ struct _JSONWriter {
 typedef struct _JSONWriter* JSONWriter;
 
 JSONWriter jsonwriter_new(Dict data);
-void*      jsonwriter_del(JSONWriter self);
+void       jsonwriter_del(JSONWriter self);
 
 strview_t jsonwriter_getStrView(JSONWriter self);
 
-void __jsonwriter_serializeObject(JSONWriter self, const Object val);
-void __jsonwriter_serializeNull(JSONWriter self);
-void __jsonwriter_serializeInt64(JSONWriter self, const int64_t val);
-void __jsonwriter_serializeFloat64(JSONWriter self, const float64_t val);
-void __jsonwriter_serializeBool(JSONWriter self, const bool_t val);
-void __jsonwriter_serializeStr(JSONWriter self, strview_t val);
-void __jsonwriter_serializeList(JSONWriter self, const List val);
-void __jsonwriter_serializeDict(JSONWriter self, const Dict val);
+void _jsonwriter_serializeObject(JSONWriter self, const Object val);
+void _jsonwriter_serializeNull(JSONWriter self);
+void _jsonwriter_serializeInt64(JSONWriter self, const int64_t val);
+void _jsonwriter_serializeFloat64(JSONWriter self, const float64_t val);
+void _jsonwriter_serializeBool(JSONWriter self, const bool_t val);
+void _jsonwriter_serializeStr(JSONWriter self, strview_t val);
+void _jsonwriter_serializeList(JSONWriter self, const List val);
+void _jsonwriter_serializeDict(JSONWriter self, const Dict val);
 
 #ifdef __cplusplus
 }

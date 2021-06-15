@@ -26,7 +26,7 @@ extern "C" {
 #include "simplejson/_internal.h"
 #include "simplejson/str.h"
 
-#define __STRINGBUFFER_INITIAL_CAP 128
+#define _STRINGBUFFER_INITIAL_CAP 128
 
 struct _StringBuffer {
   str_t  buf;
@@ -36,11 +36,11 @@ struct _StringBuffer {
 typedef struct _StringBuffer* StringBuffer;
 
 StringBuffer stringbuffer_new();
-void*        stringbuffer_del(StringBuffer self);
+void         stringbuffer_del(StringBuffer self);
 StringBuffer stringbuffer_copy(const StringBuffer self);
 
-void   __stringbuffer_expand(StringBuffer self);
-bool_t __stringbuffer_isSpace(StringBuffer self, const size_t size);
+void   _stringbuffer_expand(StringBuffer self);
+bool_t _stringbuffer_isSpace(StringBuffer self, const size_t size);
 
 StringBuffer stringbuffer_clear(StringBuffer self);
 StringBuffer stringbuffer_put(StringBuffer self, strview_t src);

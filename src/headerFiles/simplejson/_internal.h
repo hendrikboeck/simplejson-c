@@ -55,16 +55,12 @@ typedef const char* strview_t;
 #define PNEW(type)       ((type)NEW_BLK(PSIZE(type)))
 #define NEW(type)        ((type*)NEW_BLK(sizeof(type)))
 #define NEW_ARR(type, n) ((type*)NEW_BLK(sizeof(type) * n))
-#define DEL(ptr) \
-  {              \
-    free(ptr);   \
-    ptr = NULL;  \
-  }
+#define DEL(ptr)         free(ptr)
 
 void* memory_copy(const void* src, const size_t size);
 void* memory_copyOnto(void* dest, const void* src, const size_t size);
 void* memory_move(void* src, const size_t size);
-void* memory_moveOnto(void* dest, const void* src, const size_t size);
+void* memory_moveOnto(void* dest, void* src, const size_t size);
 
 /******************************************************************************/
 /*                                SYSTEM                                      */

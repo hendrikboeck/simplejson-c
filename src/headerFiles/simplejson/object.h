@@ -67,23 +67,23 @@ typedef struct _Object* Object;
 
 #define object_new(obj)                     \
   _Generic((obj), vptr_t                    \
-           : __object_newNull, int64_t      \
-           : __object_newInt64, float64_t   \
-           : __object_newFloat64, float32_t \
-           : __object_newFloat64, bool_t    \
-           : __object_newBool, str_t        \
-           : __object_newStr, List          \
-           : __object_newList, Dict         \
-           : __object_newDict)(obj)
+           : _object_newNull, int64_t      \
+           : _object_newInt64, float64_t   \
+           : _object_newFloat64, float32_t \
+           : _object_newFloat64, bool_t    \
+           : _object_newBool, str_t        \
+           : _object_newStr, List          \
+           : _object_newList, Dict         \
+           : _object_newDict)(obj)
 
-Object __object_newNull(vptr_t data);
-Object __object_newInt64(int64_t data);
-Object __object_newFloat64(float64_t data);
-Object __object_newBool(bool_t data);
-Object __object_newStr(str_t data);
-Object __object_newList(List data);
-Object __object_newDict(Dict data);
-void*  object_del(Object self);
+Object _object_newNull(vptr_t data);
+Object _object_newInt64(int64_t data);
+Object _object_newFloat64(float64_t data);
+Object _object_newBool(bool_t data);
+Object _object_newStr(str_t data);
+Object _object_newList(List data);
+Object _object_newDict(Dict data);
+void   object_del(Object self);
 Object object_copy(const Object self);
 
 bool_t object_isNull(Object self);

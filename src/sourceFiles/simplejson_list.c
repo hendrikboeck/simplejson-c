@@ -21,18 +21,17 @@
 List list_new() {
   List self = PNEW(List);
 
-  self->data = NEW_ARR(Object, __LIST_INITIAL_CAP);
+  self->data = NEW_ARR(Object, _LIST_INITIAL_CAP);
   self->len  = 0;
-  self->cap  = __LIST_INITIAL_CAP;
+  self->cap  = _LIST_INITIAL_CAP;
 
   return self;
 }
 
-void* list_del(List self) {
+void list_del(List self) {
   list_clear(self);
   DEL(self->data);
   DEL(self);
-  return NULL;
 }
 
 List list_copy(const List self) {
@@ -48,13 +47,13 @@ List list_copy(const List self) {
   return other;
 }
 
-void __list_expand(List self) {
+void _list_expand(List self) {
   self->cap *= 2;
   self->data = memory_moveOnto(NEW_ARR(Object, self->cap), self->data,
-                          self->len * sizeof(Object));
+                               self->len * sizeof(Object));
 }
 
-bool_t __list_isSpace(const List self, const size_t size) {
+bool_t _list_isSpace(const List self, const size_t size) {
   return (self->len + size <= self->cap);
 }
 
@@ -79,13 +78,12 @@ List list_append(List self, Object obj) {
 }
 
 List list_clear(List self) {
-  for (size_t i = 0; i < self->len; i++)
-    self->data[i] = object_del(self->data[i]);
+  for (size_t i = 0; i < self->len; i++) object_del(self->data[i]);
   self->len = 0;
 }
 
 List list_extend(List self, const List other) {
-  while (!__list_isSpace(self, other->len)) __list_expand(self);
+  while (!_list_isSpace(self, other->len)) _list_expand(self);
 
   for (size_t i = 0; i < other->len; i++)
     self->data[self->len + i] = object_copy(other->data[i]);
@@ -95,7 +93,7 @@ List list_extend(List self, const List other) {
 }
 
 List list_insert(List self, const size_t index, Object obj) {
-  if (!__list_isSpace(self, 1)) __list_expand(self);
+  if (!_list_isSpace(self, 1)) _list_expand(self);
 
   for (size_t i = self->len; i > index; i--) self->data[i] = self->data[i - 1];
   self->data[index] = obj;
@@ -105,7 +103,7 @@ List list_insert(List self, const size_t index, Object obj) {
 }
 
 List list_remove(List self, const size_t index) {
-  self->data[index] = object_del(self->data[index]);
+  object_del(self->data[index]);
   for (size_t i = index; i < self->len - 1; i++)
     self->data[i] = self->data[i + 1];
   self->len--;

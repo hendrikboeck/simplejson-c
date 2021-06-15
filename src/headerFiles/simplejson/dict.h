@@ -26,7 +26,7 @@ extern "C" {
 #include "simplejson/object.h"
 #include "simplejson/str.h"
 
-#define __DICT_INITIAL_CAP 4
+#define _dict_INITIAL_CAP 4
 
 struct _DictTuple {
   str_t  key;
@@ -41,12 +41,12 @@ struct _Dict {
 };
 typedef struct _Dict* Dict;
 
-Dict  dict_new();
-void* dict_del(Dict self);
-Dict  dict_copy(const Dict self);
+Dict dict_new();
+void dict_del(Dict self);
+Dict dict_copy(const Dict self);
 
-void   __dict_expand(Dict self);
-bool_t __dict_isSpace(const Dict self, const size_t size);
+void   _dict_expand(Dict self);
+bool_t _dict_isSpace(const Dict self, const size_t size);
 
 size_t     dict_length(const Dict self);
 size_t     dict_capacity(const Dict self);

@@ -18,7 +18,7 @@
 
 #include "simplejson/object.h"
 
-Object __object_newNull(vptr_t data) {
+Object _object_newNull(vptr_t data) {
   Object self = PNEW(Object);
 
   self->type     = NULL_OBJ_TYPE;
@@ -27,7 +27,7 @@ Object __object_newNull(vptr_t data) {
   return self;
 }
 
-Object __object_newInt64(int64_t data) {
+Object _object_newInt64(int64_t data) {
   Object self = PNEW(Object);
 
   self->type    = INT64_OBJ_TYPE;
@@ -36,7 +36,7 @@ Object __object_newInt64(int64_t data) {
   return self;
 }
 
-Object __object_newFloat64(float64_t data) {
+Object _object_newFloat64(float64_t data) {
   Object self = PNEW(Object);
 
   self->type      = FLOAT64_OBJ_TYPE;
@@ -45,7 +45,7 @@ Object __object_newFloat64(float64_t data) {
   return self;
 }
 
-Object __object_newBool(bool_t data) {
+Object _object_newBool(bool_t data) {
   Object self = PNEW(Object);
 
   self->type     = BOOL_OBJ_TYPE;
@@ -54,7 +54,7 @@ Object __object_newBool(bool_t data) {
   return self;
 }
 
-Object __object_newStr(str_t data) {
+Object _object_newStr(str_t data) {
   Object self = PNEW(Object);
 
   self->type    = STR_OBJ_TYPE;
@@ -63,7 +63,7 @@ Object __object_newStr(str_t data) {
   return self;
 }
 
-Object __object_newList(List data) {
+Object _object_newList(List data) {
   Object self = PNEW(Object);
 
   self->type     = LIST_OBJ_TYPE;
@@ -72,7 +72,7 @@ Object __object_newList(List data) {
   return self;
 }
 
-Object __object_newDict(Dict data) {
+Object _object_newDict(Dict data) {
   Object self = PNEW(Object);
 
   self->type     = DICT_OBJ_TYPE;
@@ -81,7 +81,7 @@ Object __object_newDict(Dict data) {
   return self;
 }
 
-void* object_del(Object self) {
+void object_del(Object self) {
   switch (self->type) {
     case STR_OBJ_TYPE:
       DEL(self->u._str_);
@@ -100,7 +100,6 @@ void* object_del(Object self) {
   }
 
   DEL(self);
-  return NULL;
 }
 
 Object object_copy(Object self) {

@@ -22,9 +22,8 @@ str_t str_new(size_t cap) {
   return (str_t)NEW_BLK(cap);
 }
 
-void* str_del(str_t self) {
+void str_del(str_t self) {
   DEL(self);
-  return NULL;
 }
 
 str_t str_copy(strview_t self) {

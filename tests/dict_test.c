@@ -12,20 +12,19 @@ static void test_dictionary_new(void** state) {
 
   assert_non_null(d_01);
   assert_non_null(d_01->data);
-  assert_int_equal(d_01->cap, __DICT_INITIAL_CAP);
+  assert_int_equal(d_01->cap, _dict_INITIAL_CAP);
   assert_int_equal(d_01->len, 0);
 
-  d_01 = dict_del(d_01);
-  assert_null(d_01);
+  dict_del(d_01);
 }
 
 static void test_dictionary_expand(void** state) {
   (void)state;
 
   Dict d_01 = dict_new();
-  __dict_expand(d_01);
+  _dict_expand(d_01);
 
-  assert_int_equal(d_01->cap, __DICT_INITIAL_CAP * 2);
+  assert_int_equal(d_01->cap, _dict_INITIAL_CAP * 2);
 
   dict_del(d_01);
 }
@@ -35,8 +34,8 @@ static void test_dictionary_isSpace(void** state) {
 
   Dict d_01 = dict_new();
 
-  assert_true(__dict_isSpace(d_01, __DICT_INITIAL_CAP));
-  assert_false(__dict_isSpace(d_01, __DICT_INITIAL_CAP + 1));
+  assert_true(_dict_isSpace(d_01, _dict_INITIAL_CAP));
+  assert_false(_dict_isSpace(d_01, _dict_INITIAL_CAP + 1));
 
   dict_del(d_01);
 }
@@ -140,11 +139,11 @@ static void test_dictionary_capacity(void** state) {
   (void)state;
 
   Dict d_01 = dict_new();
-  assert_int_equal(dict_capacity(d_01), __DICT_INITIAL_CAP);
-  __dict_expand(d_01);
-  assert_int_equal(dict_capacity(d_01), __DICT_INITIAL_CAP * 2);
+  assert_int_equal(dict_capacity(d_01), _dict_INITIAL_CAP);
+  _dict_expand(d_01);
+  assert_int_equal(dict_capacity(d_01), _dict_INITIAL_CAP * 2);
   dict_clear(d_01);
-  assert_int_equal(dict_capacity(d_01), __DICT_INITIAL_CAP * 2);
+  assert_int_equal(dict_capacity(d_01), _dict_INITIAL_CAP * 2);
 
   dict_del(d_01);
 }
@@ -175,12 +174,8 @@ static void test_dictionary_clear(void** state) {
 
   dict_clear(d_01);
 
-  assert_null(dict_data(d_01)[0].key);
-  assert_null(dict_data(d_01)[0].value);
-  assert_null(dict_data(d_01)[4].key);
-  assert_null(dict_data(d_01)[4].value);
   assert_int_equal(dict_length(d_01), 0);
-  assert_int_equal(dict_capacity(d_01), __DICT_INITIAL_CAP * 2);
+  assert_int_equal(dict_capacity(d_01), _dict_INITIAL_CAP * 2);
 
   dict_del(d_01);
 }

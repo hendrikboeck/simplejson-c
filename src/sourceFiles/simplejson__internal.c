@@ -19,9 +19,7 @@
 #include "simplejson/_internal.h"
 
 void* memory_copy(const void* src, const size_t size) {
-  void* blk = NEW_BLK(size);
-  memcpy(blk, src, size);
-  return blk;
+  return memcpy(NEW_BLK(size), src, size);
 }
 
 void* memory_copyOnto(void* dest, const void* src, const size_t size) {
@@ -34,7 +32,7 @@ void* memory_move(void* src, const size_t size) {
   return blk;
 }
 
-void* memory_moveOnto(void* dest, const void* src, const size_t size) {
+void* memory_moveOnto(void* dest, void* src, const size_t size) {
   memcpy(dest, src, size);
   DEL(src);
   return dest;

@@ -15,8 +15,7 @@ static void test_jsonwriter_new(void** state) {
   assert_ptr_equal(w_01->data, d_01);
 
   dict_del(d_01);
-  w_01 = jsonwriter_del(w_01);
-  assert_null(w_01);
+  jsonwriter_del(w_01);
 }
 
 static void test_jsonwriter_getStrView(void** state) {

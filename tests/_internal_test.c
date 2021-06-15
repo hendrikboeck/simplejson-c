@@ -38,7 +38,4 @@ static void test_internal_memory(void **state) {
 
   DEL(dCopy);
   DEL(dMoveOnto);
-
-  assert_null(dCopy);
-  assert_null(dMoveOnto);
 }

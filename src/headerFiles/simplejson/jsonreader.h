@@ -39,25 +39,25 @@ struct _SIMPLEJSONCReader {
 typedef struct _SIMPLEJSONCReader* JSONReader;
 
 JSONReader jsonreader_new(strview_t json);
-void*      jsonreader_del(JSONReader self);
+void       jsonreader_del(JSONReader self);
 
 Dict jsonreader_getDict(const JSONReader self);
 
-void    __jsonreader_forward(JSONReader self);
-bool_t  __jsonreader_hitEOB(JSONReader self);
-bool_t  __jsonreader_validateNextCharToken(JSONReader self, const char ctoken);
-bool_t  __jsonreader_validateNextToken(JSONReader self, strview_t stoken);
-str_t   __jsonreader_getNextToken(JSONReader self, bool_t isSToken);
-int32_t __jsonreader_getTypeOfNextToken(JSONReader self);
+void    _jsonreader_forward(JSONReader self);
+bool_t  _jsonreader_hitEOB(JSONReader self);
+bool_t  _jsonreader_validateNextCharToken(JSONReader self, const char ctoken);
+bool_t  _jsonreader_validateNextToken(JSONReader self, strview_t stoken);
+str_t   _jsonreader_getNextToken(JSONReader self, bool_t isSToken);
+int32_t _jsonreader_getTypeOfNextToken(JSONReader self);
 
-Object    __jsonreader_parseObject(JSONReader self);
-vptr_t    __jsonreader_parseNull(JSONReader self);
-int64_t   __jsonreader_parseInt64(JSONReader self);
-float64_t __jsonreader_parseFloat64(JSONReader self);
-bool_t    __jsonreader_parseBool(JSONReader self);
-str_t     __jsonreader_parseStr(JSONReader self);
-List      __jsonreader_parseList(JSONReader self);
-Dict      __jsonreader_parseDict(JSONReader self);
+Object    _jsonreader_parseObject(JSONReader self);
+vptr_t    _jsonreader_parseNull(JSONReader self);
+int64_t   _jsonreader_parseInt64(JSONReader self);
+float64_t _jsonreader_parseFloat64(JSONReader self);
+bool_t    _jsonreader_parseBool(JSONReader self);
+str_t     _jsonreader_parseStr(JSONReader self);
+List      _jsonreader_parseList(JSONReader self);
+Dict      _jsonreader_parseDict(JSONReader self);
 
 #ifdef __cplusplus
 }

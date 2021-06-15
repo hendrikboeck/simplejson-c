@@ -21,17 +21,16 @@
 StringBuffer stringbuffer_new() {
   StringBuffer self = PNEW(StringBuffer);
 
-  self->buf = str_new(__STRINGBUFFER_INITIAL_CAP);
+  self->buf = str_new(_STRINGBUFFER_INITIAL_CAP);
   self->len = 0;
-  self->cap = __STRINGBUFFER_INITIAL_CAP;
+  self->cap = _STRINGBUFFER_INITIAL_CAP;
 
   return self;
 }
 
-void* stringbuffer_del(StringBuffer self) {
+void stringbuffer_del(StringBuffer self) {
   str_del(self->buf);
   DEL(self);
-  return NULL;
 }
 
 StringBuffer stringbuffer_copy(const StringBuffer self) {
@@ -40,12 +39,12 @@ StringBuffer stringbuffer_copy(const StringBuffer self) {
   return other;
 }
 
-void __stringbuffer_expand(StringBuffer self) {
+void _stringbuffer_expand(StringBuffer self) {
   self->cap *= 2;
   self->buf = memory_moveOnto(str_new(self->cap), self->buf, self->len);
 }
 
-bool_t __stringbuffer_isSpace(StringBuffer self, const size_t size) {
+bool_t _stringbuffer_isSpace(StringBuffer self, const size_t size) {
   return (self->len + size <= self->cap);
 }
 
@@ -55,7 +54,7 @@ StringBuffer stringbuffer_clear(StringBuffer self) {
 StringBuffer stringbuffer_put(StringBuffer self, strview_t src) {
   size_t srcLen = str_length(src);
 
-  while (!__stringbuffer_isSpace(self, srcLen)) __stringbuffer_expand(self);
+  while (!_stringbuffer_isSpace(self, srcLen)) _stringbuffer_expand(self);
   memcpy(ADDR(self->buf[self->len]), src, srcLen);
   self->len += srcLen;
 
@@ -63,14 +62,14 @@ StringBuffer stringbuffer_put(StringBuffer self, strview_t src) {
 }
 
 StringBuffer stringbuffer_putChar(StringBuffer self, char src) {
-  if (!__stringbuffer_isSpace(self, 1)) __stringbuffer_expand(self);
+  if (!_stringbuffer_isSpace(self, 1)) _stringbuffer_expand(self);
   self->buf[self->len++] = src;
 
   return self;
 }
 
 strview_t stringbuffer_get(StringBuffer self) {
-  if (!__stringbuffer_isSpace(self, 1)) __stringbuffer_expand(self);
+  if (!_stringbuffer_isSpace(self, 1)) _stringbuffer_expand(self);
   self->buf[self->len] = 0;
 
   return (strview_t)self->buf;

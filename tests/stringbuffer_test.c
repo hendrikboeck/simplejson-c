@@ -13,10 +13,9 @@ static void test_stringbuffer_new(void** state) {
   assert_non_null(sbuf_01);
   assert_non_null(sbuf_01->buf);
   assert_int_equal(sbuf_01->len, 0);
-  assert_int_equal(sbuf_01->cap, __STRINGBUFFER_INITIAL_CAP);
+  assert_int_equal(sbuf_01->cap, _STRINGBUFFER_INITIAL_CAP);
 
-  sbuf_01 = stringbuffer_del(sbuf_01);
-  assert_null(sbuf_01);
+  stringbuffer_del(sbuf_01);
 }
 
 static void test_stringbuffer_copy(void** state) {
@@ -41,9 +40,9 @@ static void test_stringbuffer_expand(void** state) {
   (void)state;
 
   StringBuffer sbuf_01 = stringbuffer_new();
-  assert_int_equal(sbuf_01->cap, __STRINGBUFFER_INITIAL_CAP);
-  __stringbuffer_expand(sbuf_01);
-  assert_int_equal(sbuf_01->cap, __STRINGBUFFER_INITIAL_CAP * 2);
+  assert_int_equal(sbuf_01->cap, _STRINGBUFFER_INITIAL_CAP);
+  _stringbuffer_expand(sbuf_01);
+  assert_int_equal(sbuf_01->cap, _STRINGBUFFER_INITIAL_CAP * 2);
 
   stringbuffer_del(sbuf_01);
 }
@@ -52,8 +51,8 @@ static void test_stringbuffer_isSpace(void** state) {
   (void)state;
 
   StringBuffer sbuf_01 = stringbuffer_new();
-  assert_true(__stringbuffer_isSpace(sbuf_01, __STRINGBUFFER_INITIAL_CAP));
-  assert_false(__stringbuffer_isSpace(sbuf_01, __STRINGBUFFER_INITIAL_CAP + 1));
+  assert_true(_stringbuffer_isSpace(sbuf_01, _STRINGBUFFER_INITIAL_CAP));
+  assert_false(_stringbuffer_isSpace(sbuf_01, _STRINGBUFFER_INITIAL_CAP + 1));
 
   stringbuffer_del(sbuf_01);
 }

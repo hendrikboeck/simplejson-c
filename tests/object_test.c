@@ -24,21 +24,13 @@ static void test_object_new(void** state) {
   assert_non_null(obj_06);
   assert_non_null(obj_07);
 
-  obj_01 = object_del(obj_01);
-  obj_02 = object_del(obj_02);
-  obj_03 = object_del(obj_03);
-  obj_04 = object_del(obj_04);
-  obj_05 = object_del(obj_05);
-  obj_06 = object_del(obj_06);
-  obj_07 = object_del(obj_07);
-
-  assert_null(obj_01);
-  assert_null(obj_02);
-  assert_null(obj_03);
-  assert_null(obj_04);
-  assert_null(obj_05);
-  assert_null(obj_06);
-  assert_null(obj_07);
+  object_del(obj_01);
+  object_del(obj_02);
+  object_del(obj_03);
+  object_del(obj_04);
+  object_del(obj_05);
+  object_del(obj_06);
+  object_del(obj_07);
 }
 
 static void test_object_is(void** state) {
