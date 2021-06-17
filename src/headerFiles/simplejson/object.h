@@ -65,8 +65,8 @@ typedef struct _Object* Object;
            : LIST_OBJ_TYPE, Dict         \
            : DICT_OBJ_TYPE)
 
-#define object_new(obj)                     \
-  _Generic((obj), vptr_t                    \
+#define object_new(X)                      \
+  _Generic((X), vptr_t                     \
            : _object_newNull, int64_t      \
            : _object_newInt64, float64_t   \
            : _object_newFloat64, float32_t \
@@ -74,7 +74,7 @@ typedef struct _Object* Object;
            : _object_newBool, str_t        \
            : _object_newStr, List          \
            : _object_newList, Dict         \
-           : _object_newDict)(obj)
+           : _object_newDict)(X)
 
 Object _object_newNull(vptr_t data);
 Object _object_newInt64(int64_t data);

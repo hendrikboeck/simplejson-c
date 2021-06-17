@@ -1,3 +1,21 @@
+/******************************************************************************/
+/* simplejson-c                                                               */
+/* Copyright (C) 2021  Hendrik Boeck <hendrikboeck.dev@protonmail.com>        */
+/*                                                                            */
+/* This program is free software: you can redistribute it and/or modify       */
+/* it under the terms of the GNU General Public License as published by       */
+/* the Free Software Foundation, either version 3 of the License, or          */
+/* (at your option) any later version.                                        */
+/*                                                                            */
+/* This program is distributed in the hope that it will be useful,            */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of             */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              */
+/* GNU General Public License for more details.                               */
+/*                                                                            */
+/* You should have received a copy of the GNU General Public License          */
+/* along with this program.  If not, see <http://www.gnu.org/licenses/>.      */
+/******************************************************************************/
+
 // if autoformat puts <cmocka.h>, anywhere else then at the end of all global
 // includes, then put it there manually
 #include <setjmp.h>
@@ -17,17 +35,9 @@
 #include "stringbuffer_test.c"
 
 int main(void) {
-  // test simplejson/_internal.h
-  printf("--------- RUNNING TESTS FOR 'simplejson/_internal.h' ---------\n");
-  const struct CMUnitTest tests_internal[] = {
+  const struct CMUnitTest tests_list[] = {
       cmocka_unit_test(test_internal_boolean),
-      cmocka_unit_test(test_internal_memory)};
-  int return_tests_internal =
-      cmocka_run_group_tests(tests_internal, NULL, NULL);
-
-  // test simplejson/dict.h
-  printf("\n--------- RUNNING TESTS FOR 'simplejson/dict.h' ---------\n");
-  const struct CMUnitTest tests_dict[] = {
+      cmocka_unit_test(test_internal_memory),
       cmocka_unit_test(test_dictionary_new),
       cmocka_unit_test(test_dictionary_expand),
       cmocka_unit_test(test_dictionary_isSpace),
@@ -37,69 +47,36 @@ int main(void) {
       cmocka_unit_test(test_dictionary_capacity),
       cmocka_unit_test(test_dictionary_data),
       cmocka_unit_test(test_dictionary_clear),
-      cmocka_unit_test(test_dictionary_keys)};
-  int return_tests_dict = cmocka_run_group_tests(tests_dict, NULL, NULL);
-
-  // test simplejson/list.h
-  printf("\n--------- RUNNING TESTS FOR 'simplejson/list.h' ---------\n");
-  const struct CMUnitTest tests_list[] = {cmocka_unit_test(test_list_new),
-                                          cmocka_unit_test(test_list_expand),
-                                          cmocka_unit_test(test_list_isSpace),
-                                          cmocka_unit_test(test_list_copy),
-                                          cmocka_unit_test(test_list_length),
-                                          cmocka_unit_test(test_list_capacity),
-                                          cmocka_unit_test(test_list_data),
-                                          cmocka_unit_test(test_list_at_append),
-                                          cmocka_unit_test(test_list_clear),
-                                          cmocka_unit_test(test_list_insert),
-                                          cmocka_unit_test(test_list_remove),
-                                          cmocka_unit_test(test_list_pop)};
-  int return_tests_list = cmocka_run_group_tests(tests_list, NULL, NULL);
-
-  // test simplejson/str.h
-  printf("\n--------- RUNNING TESTS FOR 'simplejson/str.h' ---------\n");
-  const struct CMUnitTest tests_str[] = {
-      cmocka_unit_test(test_str_new), cmocka_unit_test(test_str_length),
-      cmocka_unit_test(test_str_copy), cmocka_unit_test(test_str_contains),
-      cmocka_unit_test(test_str_startswith)};
-  int return_tests_str = cmocka_run_group_tests(tests_str, NULL, NULL);
-
-  // test simplejson/object.h
-  printf("\n--------- RUNNING TESTS FOR 'simplejson/object.h' ---------\n");
-  const struct CMUnitTest tests_object[] = {cmocka_unit_test(test_object_new),
-                                            cmocka_unit_test(test_object_is),
-                                            cmocka_unit_test(test_object_get)};
-  int return_tests_object = cmocka_run_group_tests(tests_object, NULL, NULL);
-
-  // test simplejson/stringbuffer.h
-  printf(
-      "\n--------- RUNNING TESTS FOR 'simplejson/stringbuffer.h' ---------\n");
-  const struct CMUnitTest tests_stringbuffer[] = {
+      cmocka_unit_test(test_dictionary_keys),
+      cmocka_unit_test(test_list_new),
+      cmocka_unit_test(test_list_expand),
+      cmocka_unit_test(test_list_isSpace),
+      cmocka_unit_test(test_list_copy),
+      cmocka_unit_test(test_list_length),
+      cmocka_unit_test(test_list_capacity),
+      cmocka_unit_test(test_list_data),
+      cmocka_unit_test(test_list_at_append),
+      cmocka_unit_test(test_list_clear),
+      cmocka_unit_test(test_list_insert),
+      cmocka_unit_test(test_list_remove),
+      cmocka_unit_test(test_list_pop),
+      cmocka_unit_test(test_str_new),
+      cmocka_unit_test(test_str_length),
+      cmocka_unit_test(test_str_copy),
+      cmocka_unit_test(test_str_contains),
+      cmocka_unit_test(test_str_startswith),
+      cmocka_unit_test(test_object_new),
+      cmocka_unit_test(test_object_is),
+      cmocka_unit_test(test_object_get),
       cmocka_unit_test(test_stringbuffer_new),
       cmocka_unit_test(test_stringbuffer_copy),
       cmocka_unit_test(test_stringbuffer_expand),
       cmocka_unit_test(test_stringbuffer_isSpace),
-      cmocka_unit_test(test_stringbuffer_put_get)};
-  int return_tests_stringbuffer =
-      cmocka_run_group_tests(tests_stringbuffer, NULL, NULL);
-
-  // test simplejson/jsonwriter.h
-  printf("\n--------- RUNNING TESTS FOR 'simplejson/jsonwriter.h' ---------\n");
-  const struct CMUnitTest tests_jsonwriter[] = {
+      cmocka_unit_test(test_stringbuffer_put_get),
       cmocka_unit_test(test_jsonwriter_new),
-      cmocka_unit_test(test_jsonwriter_getStrView)};
-  int return_tests_jsonwriter =
-      cmocka_run_group_tests(tests_jsonwriter, NULL, NULL);
-
-  // test simplejson/jsonreader.h
-  printf("\n--------- RUNNING TESTS FOR 'simplejson/jsonreader.h' ---------\n");
-  const struct CMUnitTest tests_jsonreader[] = {
+      cmocka_unit_test(test_jsonwriter_getStrView),
       cmocka_unit_test(test_jsonreader_new),
       cmocka_unit_test(test_jsonreader_getDict)};
-  int return_tests_jsonreader =
-      cmocka_run_group_tests(tests_jsonreader, NULL, NULL);
 
-  return return_tests_internal + return_tests_dict + return_tests_list +
-         return_tests_str + return_tests_object + return_tests_stringbuffer +
-         return_tests_jsonwriter + return_tests_jsonreader;
+  return cmocka_run_group_tests(tests_list, NULL, NULL);
 }

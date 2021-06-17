@@ -48,7 +48,7 @@ Dict dict_copy(const Dict self) {
 void _dict_expand(Dict self) {
   self->cap *= 2;
   self->data = memory_moveOnto(NEW_ARR(DictTuple, self->cap), self->data,
-                          self->len * sizeof(DictTuple));
+                               self->len * sizeof(DictTuple));
 }
 
 bool_t _dict_isSpace(const Dict self, const size_t size) {
@@ -69,9 +69,9 @@ DictTuple* dict_data(const Dict self) {
 
 Dict dict_clear(Dict self) {
   for (size_t i = 0; i < self->len; i++) {
-    DictTuple *tplPtr = ADDR(self->data[i]);
-    str_del(tplPtr->key);
-    object_del(tplPtr->value);
+    DictTuple tpl = self->data[i];
+    str_del(tpl.key);
+    object_del(tpl.value);
   }
   self->len = 0;
 

@@ -1,4 +1,4 @@
-<p align="center"><img width=64px src=".github/markdown/json.png"></p>
+<p align="center"><img height=64px src=".github/markdown/simplejson.png"></p>
 <h1 align="center">simplejson-c</h1>
 
 - [1. Abstract](#1-abstract)
@@ -6,7 +6,6 @@
 - [3. Examples](#3-examples)
   - [3.1. Read JSON](#31-read-json)
   - [3.2. Write JSON](#32-write-json)
-- [4. Acknowledgements](#4-acknowledgements)
 
 # 1. Abstract
 
@@ -81,7 +80,3 @@ printf("OUT: %s\n", jsonwriter_getStrView(writer));
 jsonwriter_del(writer);
 dict_del(dict);
 ```
-
-# 4. Acknowledgements
-
-- Icon made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [Flaticon](https://www.flaticon.com/)
