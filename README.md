@@ -1,5 +1,4 @@
-<p align="center"><img height=64px src=".github/markdown/simplejson.png"></p>
-<h1 align="center">simplejson-c</h1>
+<p align="center"><img height=64px src=".github/markdown/simplejson-c.png"></p>
 
 - [1. Abstract](#1-abstract)
 - [2. Use simplejson-c into project](#2-use-simplejson-c-into-project)
